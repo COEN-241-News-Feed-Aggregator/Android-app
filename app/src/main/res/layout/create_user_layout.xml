@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Activity.Login">
+    android:layout_gravity="center"
+    android:background="@drawable/blackwhite">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="300dp"
+    android:layout_height="450dp"
+    tools:context="Activity.CreateUser"
+    android:background="@drawable/layout_bg"
+    android:layout_marginLeft="50dp"
+    android:layout_gravity="center">
 
     <TextView
         android:id="@+id/app_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150sp"
+        android:layout_marginTop="50dp"
         android:fontFamily="cursive"
         android:gravity="center"
         android:text="Create new user"
@@ -26,9 +35,10 @@
         android:layout_height="50dp"
         android:layout_marginLeft="50dp"
         android:fontFamily="cursive"
+        android:textColor="@color/black"
         android:gravity="center"
         android:text="Login Id"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_name" />
@@ -40,7 +50,7 @@
         android:fontFamily="cursive"
         android:gravity="center"
         android:hint="Enter your email address"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textStyle="bold"
         android:layout_marginLeft="20dp"
         app:layout_constraintLeft_toRightOf="@id/login_text"
@@ -52,8 +62,9 @@
         android:layout_height="50dp"
         android:fontFamily="cursive"
         android:gravity="center"
+        android:textColor="@color/black"
         android:text="Password"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/login_text"
         app:layout_constraintTop_toBottomOf="@id/login_text" />
@@ -65,85 +76,62 @@
         android:fontFamily="cursive"
         android:gravity="center"
         android:hint="Enter your Password"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/email"
         app:layout_constraintTop_toBottomOf="@id/login_text" />
 
     <TextView
-        android:id="@+id/login_name"
+        android:id="@+id/first_name"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginLeft="50dp"
         android:fontFamily="cursive"
         android:gravity="center"
-        android:text="Name"
-        android:textSize="20dp"
+        android:text="First Name"
+        android:textColor="@color/black"
+        android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_password" />
 
     <EditText
-        android:id="@+id/uName"
+        android:id="@+id/fName"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:fontFamily="cursive"
         android:gravity="center"
-        android:hint="Enter your Name"
-        android:textSize="20dp"
+        android:hint="Enter your First Name"
+        android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/email"
         app:layout_constraintTop_toBottomOf="@id/login_password" />
-    <LinearLayout
+    <TextView
+        android:id="@+id/last_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/linear"
-        app:layout_constraintTop_toBottomOf="@+id/uName"
+        android:layout_height="50dp"
+        android:layout_marginLeft="50dp"
+        android:fontFamily="cursive"
+        android:gravity="center"
+        android:text="Last Name"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/first_name" />
 
-        <TextView
-            android:id="@+id/login_age"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:fontFamily="cursive"
-            android:gravity="center"
-            android:text="Age"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:id="@+id/age"
-            android:layout_marginLeft="10dp"
-            app:layout_constraintLeft_toRightOf="@id/login_age"
-            app:layout_constraintTop_toBottomOf="@id/login_name"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            />
+    <EditText
+        android:id="@+id/lName"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:fontFamily="cursive"
+        android:gravity="center"
+        android:hint="Enter your Last Name"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/email"
+        app:layout_constraintTop_toBottomOf="@id/first_name" />
 
-        <TextView
-            android:id="@+id/login_sex"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginLeft="50dp"
-            android:fontFamily="cursive"
-            android:gravity="center"
-            android:text="SEX"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:id="@+id/sex"
-            android:layout_marginLeft="10dp"
-            app:layout_constraintLeft_toRightOf="@id/login_sex"
-            app:layout_constraintTop_toBottomOf="@id/login_name"
-            android:textStyle="bold"
-            android:textSize="20dp" />
-    </LinearLayout>
 
     <Button
         android:id="@+id/login"
@@ -158,5 +146,6 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear" />
+        app:layout_constraintTop_toBottomOf="@+id/lName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

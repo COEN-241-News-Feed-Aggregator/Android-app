@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.newsfeedaggregator.R;
 
 import java.util.List;
@@ -40,14 +41,18 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
     @Override
     public void onBindViewHolder(final NewsRecyclerViewAdapter.ViewHolder holder, int position) {
         NewsArticle news = timeline.get(position);
-        Uri uri = news.image_url;
-        String url = news.article_url;
-        holder.topic.setText("");
-        holder.displayImage.setImageURI(uri);
+        String image_url = news.imageUrl;
+        String url = news.webUrl;
+        holder.topic.setText(String.join(",",news.topics));
+        holder.title.setText(news.title);
+        holder.date.setText(news.publishedDate);
+        holder.author.setText(news.author);
         holder.content_text.setText(news.content);
+        Glide.with(mContext).load(image_url).into(holder.displayImage);
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, WebViewActivity.class);
             intent.putExtra("URL", url);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
         });
     }
@@ -89,14 +94,19 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView topic;
+        public TextView date;
+        public TextView title;
+        public TextView author;
         public ImageView displayImage;
         public TextView content_text;
         public ViewHolder(View view) {
             super(view);
             topic = view.findViewById(R.id.topic);
+            date = view.findViewById(R.id.date);
+            title = view.findViewById(R.id.title);
+            author = view.findViewById(R.id.author);
             displayImage = view.findViewById(R.id.display_image);
             content_text = view.findViewById(R.id.content_text);
-
         }
     }
 }

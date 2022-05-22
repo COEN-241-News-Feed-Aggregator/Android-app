@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -30,29 +32,29 @@ import java.util.Calendar;
 public class CreateUser extends AppCompatActivity {
     private EditText editText_email;
     private EditText editText_password;
-    private EditText editText_name;
-    private EditText editText_age;
-    private EditText editText_sex;
+    private EditText editText_fname;
+    private EditText editText_lname;
+    private int userId;
     private Button login;
     //private String USER_CREATE = "http://10.0.2.2:8080/user/create";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.home_page_layout);
         setContentView(R.layout.create_user_layout);
         editText_email = findViewById(R.id.email);
         editText_password = findViewById(R.id.password);
-        editText_name = findViewById(R.id.uName);
-        editText_age = findViewById(R.id.age);
-        editText_sex = findViewById(R.id.sex);
+        editText_fname = findViewById(R.id.fName);
+        editText_lname = findViewById(R.id.lName);
         login = findViewById(R.id.login);
         //url = "https://localhost:8081";
     }
     public void createUser(View view){
         String userEmail = editText_email.getText().toString().trim();
         String password = editText_password.getText().toString().trim();
-        String name = editText_name.getText().toString();
-        String sex = editText_sex.getText().toString();
-        int age = Integer.parseInt(editText_age.getText().toString());
+        String fname = editText_fname.getText().toString();
+        String lname = editText_lname.getText().toString();
         if(userEmail.isEmpty())
         {
             editText_email.setError("Please provide username");
@@ -96,5 +98,8 @@ public class CreateUser extends AppCompatActivity {
 //                        Toast.makeText(CreateUser.this,"Failed to create user! Email already in use!",Toast.LENGTH_LONG).show();
 //                    }
 //                });
+        Intent intent = new Intent(CreateUser.this, SelectTopics.class);
+        intent.putExtra("User_ID", userId);
+        startActivity(intent);
     }
 }

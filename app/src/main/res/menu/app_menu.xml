@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add_topic"
+        android:icon="@drawable/add_topic_foreground"
+        android:title="Add/Remove topic"
+        app:showAsAction="always"
+        />
+
+</menu>

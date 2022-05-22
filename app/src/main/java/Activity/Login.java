@@ -1,39 +1,56 @@
 package Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.example.newsfeedaggregator.R;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.ParsedRequestListener;
+import com.androidnetworking.interfaces.StringRequestListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity implements Serializable {
     private EditText editText_userEmail;
     private EditText editText_password;
     private Button login;
     private String LOGIN_URL;
     private String TIMELINE_URL;
-    private int userId;
-    public NewsArticle newsArticle = new NewsArticle();
+    private int userId = 21;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //AndroidNetworking.initialize(getApplicationContext());
+        AndroidNetworking.initialize(getApplicationContext());
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.home_page_layout);
         setContentView(R.layout.login_layout);
         editText_userEmail = findViewById(R.id.userEmail);
         editText_password = findViewById(R.id.password);
         login = findViewById(R.id.login);
 //        LOGIN_URL = "http://10.0.2.2:8080/user/login";
-//        TIMELINE_URL = "http://10.0.2.2:8080/timeline/get/{userId}";
+        TIMELINE_URL = "http://13.52.211.197:8080/timeline/get/{userId}";
     }
 
     public void login(View view) {
@@ -88,15 +105,51 @@ public class Login extends AppCompatActivity {
     private void getTimeline(int userId) {
         List<String> topics = new ArrayList<>();
         List<NewsArticle> timeline = new ArrayList<>();
+
+               String image_url = "https://static01.nyt.com/images/2022/05/22/multimedia/22wordplay-splat/22wordplay-splat-articleLarge.jpg";
         topics.add("All");
         topics.add("Tech");
         topics.add("Entertainment");
         topics.add("Science");
-        Intent intent = new Intent(Login.this, HomePage.class);
-        intent.putExtra("User_ID", userId);
-        intent.putExtra("topics", (Serializable) topics);
-        intent.putExtra("timeline", (Serializable) timeline);
-        startActivity(intent);
+        timeline.add( new NewsArticle(1,"Article no 10","author 1", "01/02/2018", "content for the news", image_url,"https://www.cnn.com/2022/05/17/politics/pennsylvania-north-carolina-primary-election/index.html",new ArrayList<String>(Arrays.asList("science,technology"))));
+        timeline.add( new NewsArticle(2,"Article no 20","author 2", "01/02/2018", "content for the news", image_url,"https://apnews.com/article/russia-ukraine-zelenskyy-kyiv-finland-6203a57a7ec5fe2c49c9ccb83f2ca7e0",new ArrayList<String>(Arrays.asList("movie"))));
+        timeline.add( new NewsArticle(3,"Article no 30","author 3", "01/02/2018", "content for the news", image_url,"https://www.democratandchronicle.com/story/news/2022/05/17/president-biden-buffalo-shooting-scene-visit-missed-some-residents/9807343002/",new ArrayList<String>(Arrays.asList("entertainment"))));
+        timeline.add( new NewsArticle(4,"Article no 40","author 4", "01/02/2018", "content for the news", image_url,"https://www.npr.org/2022/05/17/1099463223/north-carolina-senate-results",new ArrayList<String>(Arrays.asList("education"))));
+//                AndroidNetworking.get(TIMELINE_URL)
+//                .addPathParameter("userId", String.valueOf(userId))
+//                .build().getAsJSONArray(new JSONArrayRequestListener() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        if (response != null) {
+//                            for (int i=0;i<response.length();i++){
+//                                try {
+//                                    timeline.add((NewsArticle) response.get(i));
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(ANError anError) {
+//                        System.out.println(anError);
+//                    }
+//                } {
+//                    @Override
+//                    public void onResponse(List<NewsArticle> timeline) {
+//                        Intent intent = new Intent(Login.this, HomePage.class);
+//                        intent.putExtra("User_ID", userId);
+//                        intent.putExtra("topics", (Serializable) topics);
+//                        intent.putExtra("timeline", (Serializable) timeline);
+//                        startActivity(intent);
+//                    }
+//
+//                    @Override
+//                    public void onError(ANError anError) {
+//
+//                    }
+            //    });
 
 //        AndroidNetworking.get(TIMELINE_URL)
 //                .addPathParameter("userId", String.valueOf(userId))

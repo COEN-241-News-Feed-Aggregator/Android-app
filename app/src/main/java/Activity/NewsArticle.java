@@ -1,20 +1,38 @@
 package Activity;
 
-import android.net.Uri;
+import java.io.Serializable;
+import java.util.List;
 
-import java.net.URI;
 
-public class NewsArticle {
-    public int userId;
+public class NewsArticle implements Serializable{
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    int id;
+    public String title;
+    public String author;
+    public String publishedDate;
     public String content;
-    public Uri image_url;
-    public String article_url;
-    public NewsArticle(){};
+    public String webUrl;
+    public String imageUrl;
+    public List<String> topics;
 
-    public NewsArticle(int userId, String content, Uri image_url, String article_url){
-        this.userId = userId;
+    public NewsArticle(int id, String title, String author, String publishedDate, String content, String webUrl, String imageUrl, List<String> topics) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publishedDate = publishedDate;
         this.content = content;
-        this.image_url = image_url;
-        this.article_url = article_url;
+        this.webUrl = webUrl;
+        this.imageUrl = imageUrl;
+        this.topics = topics;
     }
+
+    public NewsArticle updateTopicList(String topic) {
+        this.topics.add(topic);
+        return this;
+    }
+
+
 }

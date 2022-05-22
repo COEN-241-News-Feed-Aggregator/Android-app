@@ -1,57 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/black">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:elevation="10dp"
+        android:layout_height="275dp"
         android:layout_margin="5dp"
-        >
+        android:elevation="10dp"
+        android:backgroundTint="@color/dark_grey">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/topic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                android:textSize="20dp"
-                android:id="@+id/topic"
-                android:text="topic"
                 android:fontFamily="cursive"
-                android:textAlignment="center">
-            </TextView>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/topic"
+                android:text="topic"
+                android:textAlignment="center"
+                android:textColor="@color/ivory"
+                android:textSize="20dp"
                 card_view:layout_constraintLeft_toLeftOf="parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="30dp">
+                card_view:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="cursive"
+                android:textColor="@color/ivory"
+                android:gravity="right"
+                android:text="Date"
+                android:textSize="20dp"
+                card_view:layout_constraintLeft_toRightOf="@id/topic"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="cursive"
+                android:textColor="@color/ivory"
+                android:text="Title"
+                android:textAlignment="center"
+                android:textSize="40dp"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@id/topic" />
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="cursive"
+                android:textColor="@color/ivory"
+                android:gravity="right"
+                android:text="Author"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@id/title" />
+
+
                 <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:id="@+id/display_image"/>
+                    android:id="@+id/display_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    card_view:layout_constraintLeft_toLeftOf="parent"
+                    card_view:layout_constraintTop_toBottomOf="@+id/author"/>
+
                 <TextView
+                    android:id="@+id/content_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30dp"
-                    android:id="@+id/content_text"
                     android:text="Content"
-                    android:textAlignment="center">
-                </TextView>
-            </LinearLayout>
+                    android:textAlignment="center"
+                    android:textColor="@color/ivory"
+                    android:fontFamily="cursive"
+                    android:textSize="30dp"
+                    card_view:layout_constraintLeft_toRightOf="@id/display_image"
+                    card_view:layout_constraintTop_toBottomOf="@+id/author"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
