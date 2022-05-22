@@ -10,7 +10,10 @@
         android:label=""
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NewsFeedAggregator.NoActionBar">
+        android:theme="@style/Theme.NewsFeedAggregator.NoActionBar"
+        android:usesCleartextTraffic="true"
+        >
+
         <activity
             android:name="Activity.SelectTopics"
             android:exported="false" />

@@ -9,27 +9,46 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.ParsedRequestListener;
+import com.androidnetworking.interfaces.StringRequestListener;
 import com.example.newsfeedaggregator.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import Models.NewsArticle;
+import Models.Topic;
 
 public class SelectTopics extends AppCompatActivity implements View.OnClickListener {
     Button next;
     ListView listView;
     int userId;
-    List<String> userTopics = new ArrayList<>();
+    List<Topic> userTopics = new ArrayList<>();
     ArrayAdapter<String> adapter;
     List<String> selectedTopics;
+    Map<String,Integer> topicMap = new HashMap<>();
+    private String TOPIC_URL = "http://10.0.2.2:8080/post/create";
+    private String TIMELINE_URL = "http://13.52.211.197:8080/timeline/get/{userId}";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_topics_layout);
+        setMap();
+        
         userId = getIntent().getIntExtra("User_ID", -1);
-        userTopics = (List<String>) getIntent().getSerializableExtra("topics");
+        userTopics = (List<Topic>) getIntent().getSerializableExtra("topics");
         listView = (ListView) findViewById(R.id.list);
         next = (Button) findViewById(R.id.nextButton);
         String[] topics = getResources().getStringArray(R.array.topics_array);
@@ -38,12 +57,22 @@ public class SelectTopics extends AppCompatActivity implements View.OnClickListe
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listView.setAdapter(adapter);
         next.setOnClickListener(this);
-        for(String userT:userTopics){
-            int position = Arrays.asList(topics).indexOf(userT);
-            listView.setItemChecked(position, true);
+        if(userTopics.size() >0) {
+            for(Topic userT:userTopics){
+                int position = Arrays.asList(topics).indexOf(userT.topicName);
+                listView.setItemChecked(position, true);
+            }
         }
     }
-
+    public void setMap(){
+        topicMap.put("Technology",1);
+        topicMap.put("Science",2);
+        topicMap.put("Politics",3);
+        topicMap.put("Sports",4);
+        topicMap.put("Entertainment",5);
+        topicMap.put("Finance",6);
+    }
+    
     @Override
     public void onClick(View v) {
         SparseBooleanArray checked = listView.getCheckedItemPositions();
@@ -61,20 +90,53 @@ public class SelectTopics extends AppCompatActivity implements View.OnClickListe
             outputStrArr[i] = selectedItems.get(i);
         }
         selectedTopics = Arrays.asList(outputStrArr);
-        getTimeline(userId,selectedTopics);
+        followTopics(userId,selectedTopics);
+        getTimeline(userId);
     }
 
-    private void getTimeline(int userId, List<String> topics) {
-        List<NewsArticle> timeline = new ArrayList<>();
-        String image_url = "https://www.seekpng.com/png/detail/209-2096780_weekly-events-update-june-clipart-library-breaking-news.png";
-        timeline.add( new NewsArticle(1,"Article no 10","author 1", "01/02/2018", "content for the news", image_url,"https://www.cnn.com/2022/05/17/politics/pennsylvania-north-carolina-primary-election/index.html",new ArrayList<String>(Arrays.asList("science,technology"))));
-        timeline.add( new NewsArticle(2,"Article no 20","author 2", "01/02/2018", "content for the news", image_url,"https://apnews.com/article/russia-ukraine-zelenskyy-kyiv-finland-6203a57a7ec5fe2c49c9ccb83f2ca7e0",new ArrayList<String>(Arrays.asList("movie"))));
-        timeline.add( new NewsArticle(3,"Article no 30","author 3", "01/02/2018", "content for the news", image_url,"https://www.democratandchronicle.com/story/news/2022/05/17/president-biden-buffalo-shooting-scene-visit-missed-some-residents/9807343002/",new ArrayList<String>(Arrays.asList("entertainment"))));
-        timeline.add( new NewsArticle(4,"Article no 40","author 4", "01/02/2018", "content for the news", image_url,"https://www.npr.org/2022/05/17/1099463223/north-carolina-senate-results",new ArrayList<String>(Arrays.asList("education"))));
-        Intent intent = new Intent(SelectTopics.this, HomePage.class);
-        intent.putExtra("User_ID", userId);
-        intent.putExtra("topics", (Serializable) topics);
-        intent.putExtra("timeline", (Serializable) timeline);
-        startActivity(intent);
+    private void followTopics(int userId, List<String> topics) {
+        for(String topic: topics){
+            int id = topicMap.get(topic);
+            userTopics.add(new Topic(id,topic));
+        }
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("userId", userId);
+            jsonObject.put("userTopics", userTopics);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        AndroidNetworking.post(TOPIC_URL)
+                .addJSONObjectBody(jsonObject) // posting java object
+                .build()
+                .getAsString(new StringRequestListener() {
+                    @Override
+                    public void onResponse(String response) {
+                        
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        Toast.makeText(SelectTopics.this, "Failed to save your preference! Please try again!", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    private void getTimeline(int userId) {
+        AndroidNetworking.get(TIMELINE_URL)
+                .addPathParameter("userId", String.valueOf(userId))
+                .build().getAsObjectList(NewsArticle.class, new ParsedRequestListener<List<NewsArticle>>(){
+            @Override
+            public void onResponse(List<NewsArticle> timeline) {
+                Intent intent = new Intent(SelectTopics.this, HomePage.class);
+                intent.putExtra("User_ID", userId);
+                intent.putExtra("topics", (Serializable) userTopics);
+                intent.putExtra("timeline", (Serializable) timeline);
+                startActivity(intent);
+            }
+            @Override
+            public void onError(ANError anError) {
+                Toast.makeText(SelectTopics.this,"Failed to load your timeline",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

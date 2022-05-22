@@ -2,11 +2,9 @@ package Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +15,7 @@ import com.example.newsfeedaggregator.R;
 
 import java.util.List;
 
-import Activity.NewsArticle;
+import Models.NewsArticle;
 import Activity.WebViewActivity;
 
 public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerViewAdapter.ViewHolder>{
@@ -42,6 +40,9 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
     public void onBindViewHolder(final NewsRecyclerViewAdapter.ViewHolder holder, int position) {
         NewsArticle news = timeline.get(position);
         String image_url = news.imageUrl;
+        if(image_url.length() < 1){
+            image_url = mContext.getString(R.string.image_url);
+        }
         String url = news.webUrl;
         holder.topic.setText(String.join(",",news.topics));
         holder.title.setText(news.title);
@@ -55,35 +56,6 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
         });
-    }
-    
-    public void onclickTopic(String comment,int postId, int postUserId){
-
-//        if(comment.length()!=0){
-//            JSONObject jsonObject = new JSONObject();
-//            try {
-//                jsonObject.put("userId", userId);
-//                jsonObject.put("postId", postId);
-//                jsonObject.put("comment", comment);
-//                jsonObject.put("postUserId", postUserId);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            AndroidNetworking.post(COMMENT_URL)
-//                    .addJSONObjectBody(jsonObject) // posting java object
-//                    .build()
-//                    .getAsOkHttpResponse(new OkHttpResponseListener() {
-//                        @Override
-//                        public void onResponse(Response response) {
-//                            Toast.makeText(mContext, "Successfully posted the comment", Toast.LENGTH_LONG).show();
-//                        }
-//
-//                        @Override
-//                        public void onError(ANError anError) {
-//                            Toast.makeText(mContext, "Failed, please try again!", Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-//        }
     }
 
 

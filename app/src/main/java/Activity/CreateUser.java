@@ -18,6 +18,9 @@ import android.widget.Toast;
 //import com.androidnetworking.interfaces.JSONArrayRequestListener;
 //import com.androidnetworking.interfaces.OkHttpResponseListener;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
 import com.example.newsfeedaggregator.R;
 
 import org.json.JSONArray;
@@ -27,6 +30,7 @@ import org.json.JSONObject;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
+import okhttp3.Response;
 
 
 public class CreateUser extends AppCompatActivity {
@@ -36,7 +40,7 @@ public class CreateUser extends AppCompatActivity {
     private EditText editText_lname;
     private int userId;
     private Button login;
-    //private String USER_CREATE = "http://10.0.2.2:8080/user/create";
+    private String USER_CREATE = "http://10.0.2.2:8080/user/create";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,33 +77,30 @@ public class CreateUser extends AppCompatActivity {
             return;
         }
 
-//        JSONObject jsonObject = new JSONObject();
-//        try {
-//            jsonObject.put("userName", name);
-//            jsonObject.put("emailId", userEmail);
-//            jsonObject.put("age", age);
-//            jsonObject.put("sex", sex);
-//            jsonObject.put("password", password);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        AndroidNetworking.post(USER_CREATE)
-//                .addJSONObjectBody(jsonObject) // posting java object
-//                .build()
-//                .getAsOkHttpResponse(new OkHttpResponseListener() {
-//                    @Override
-//                    public void onResponse(Response response) {
-//                        Intent intent = new Intent(CreateUser.this, Login.class);
-//                        startActivity(intent);
-//                    }
-//                    @Override
-//                    public void onError(ANError error) {
-//                        // handle error
-//                        Toast.makeText(CreateUser.this,"Failed to create user! Email already in use!",Toast.LENGTH_LONG).show();
-//                    }
-//                });
-        Intent intent = new Intent(CreateUser.this, SelectTopics.class);
-        intent.putExtra("User_ID", userId);
-        startActivity(intent);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("firstName", fname);
+            jsonObject.put("lastName", lname);
+            jsonObject.put("emailId", userEmail);
+            jsonObject.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        AndroidNetworking.post(USER_CREATE)
+                .addJSONObjectBody(jsonObject) // posting java object
+                .build()
+                .getAsOkHttpResponse(new OkHttpResponseListener() {
+                    @Override
+                    public void onResponse(Response response) {
+                        Intent intent = new Intent(CreateUser.this, SelectTopics.class);
+                        intent.putExtra("User_ID", userId);
+                        startActivity(intent);
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        Toast.makeText(CreateUser.this,"Failed to create user! Email already in use!",Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 }

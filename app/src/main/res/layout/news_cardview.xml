@@ -40,7 +40,7 @@
                 android:textColor="@color/ivory"
                 android:gravity="right"
                 android:text="Date"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 card_view:layout_constraintLeft_toRightOf="@id/topic"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +52,8 @@
                 android:textColor="@color/ivory"
                 android:text="Title"
                 android:textAlignment="center"
-                android:textSize="40dp"
+                android:textStyle="bold"
+                android:textSize="25dp"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@id/topic" />
 
@@ -64,6 +65,7 @@
                 android:textColor="@color/ivory"
                 android:gravity="right"
                 android:text="Author"
+                android:textSize="15dp"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@id/title" />
 
@@ -72,18 +74,20 @@
                     android:id="@+id/display_image"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_margin="10dp"
                     card_view:layout_constraintLeft_toLeftOf="parent"
                     card_view:layout_constraintTop_toBottomOf="@+id/author"/>
 
                 <TextView
                     android:id="@+id/content_text"
-                    android:layout_width="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:text="Content"
                     android:textAlignment="center"
                     android:textColor="@color/ivory"
                     android:fontFamily="cursive"
-                    android:textSize="30dp"
+                    android:textSize="20dp"
                     card_view:layout_constraintLeft_toRightOf="@id/display_image"
                     card_view:layout_constraintTop_toBottomOf="@+id/author"/>
 

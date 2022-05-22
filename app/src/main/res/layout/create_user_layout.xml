@@ -5,14 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:gravity="center"
     android:background="@drawable/blackwhite">
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="300dp"
+    android:layout_width="350dp"
     android:layout_height="450dp"
     tools:context="Activity.CreateUser"
     android:background="@drawable/layout_bg"
-    android:layout_marginLeft="50dp"
     android:layout_gravity="center">
 
     <TextView
@@ -24,10 +23,11 @@
         android:gravity="center"
         android:text="Create new user"
         android:textColor="@color/black"
-        android:textSize="30dp"
+        android:textSize="40dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/login_text"
@@ -38,8 +38,9 @@
         android:textColor="@color/black"
         android:gravity="center"
         android:text="Login Id"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textStyle="bold"
+        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_name" />
 
@@ -49,8 +50,9 @@
         android:layout_height="50dp"
         android:fontFamily="cursive"
         android:gravity="center"
+        android:layout_marginTop="20dp"
         android:hint="Enter your email address"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginLeft="20dp"
         app:layout_constraintLeft_toRightOf="@id/login_text"
@@ -64,7 +66,7 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:text="Password"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/login_text"
         app:layout_constraintTop_toBottomOf="@id/login_text" />
@@ -76,7 +78,7 @@
         android:fontFamily="cursive"
         android:gravity="center"
         android:hint="Enter your Password"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/email"
         app:layout_constraintTop_toBottomOf="@id/login_text" />
@@ -90,7 +92,7 @@
         android:gravity="center"
         android:text="First Name"
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_password" />
@@ -102,7 +104,7 @@
         android:fontFamily="cursive"
         android:gravity="center"
         android:hint="Enter your First Name"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/email"
         app:layout_constraintTop_toBottomOf="@id/login_password" />
@@ -115,7 +117,7 @@
         android:gravity="center"
         android:text="Last Name"
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/first_name" />
@@ -127,7 +129,7 @@
         android:fontFamily="cursive"
         android:gravity="center"
         android:hint="Enter your Last Name"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/email"
         app:layout_constraintTop_toBottomOf="@id/first_name" />
@@ -137,7 +139,7 @@
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="45dp"
         android:background="@drawable/roundedbutton"
         android:fontFamily="cursive"
         android:gravity="center"
