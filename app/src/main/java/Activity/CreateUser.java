@@ -21,15 +21,20 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.OkHttpResponseListener;
+import com.androidnetworking.interfaces.StringRequestListener;
 import com.example.newsfeedaggregator.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import Models.Topic;
 import okhttp3.Response;
 
 
@@ -38,9 +43,10 @@ public class CreateUser extends AppCompatActivity {
     private EditText editText_password;
     private EditText editText_fname;
     private EditText editText_lname;
+    private List<Topic> topics = new ArrayList<>();
     private int userId;
     private Button login;
-    private String USER_CREATE = "http://10.0.2.2:8080/user/create";
+    private String USER_CREATE = "http://54.209.24.172:8080/user/create";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,12 +95,18 @@ public class CreateUser extends AppCompatActivity {
         AndroidNetworking.post(USER_CREATE)
                 .addJSONObjectBody(jsonObject) // posting java object
                 .build()
-                .getAsOkHttpResponse(new OkHttpResponseListener() {
+                .getAsString(new StringRequestListener() {
                     @Override
-                    public void onResponse(Response response) {
-                        Intent intent = new Intent(CreateUser.this, SelectTopics.class);
-                        intent.putExtra("User_ID", userId);
-                        startActivity(intent);
+                    public void onResponse(String response) {
+                        userId = Integer.parseInt(response);
+                        if(userId > 0){
+                            Intent intent = new Intent(CreateUser.this, SelectTopics.class);
+                            intent.putExtra("User_ID", userId);
+                            intent.putExtra("topics", (Serializable) topics);
+                            startActivity(intent);
+                        } else{
+                            Toast.makeText(CreateUser.this,"Failed to create user! Email already in use!",Toast.LENGTH_LONG).show();
+                        }
                     }
                     @Override
                     public void onError(ANError error) {

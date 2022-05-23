@@ -30,6 +30,7 @@ import java.util.Map;
 
 import Models.NewsArticle;
 import Models.Topic;
+import Models.UserTopics;
 
 public class SelectTopics extends AppCompatActivity implements View.OnClickListener {
     Button next;
@@ -39,7 +40,7 @@ public class SelectTopics extends AppCompatActivity implements View.OnClickListe
     ArrayAdapter<String> adapter;
     List<String> selectedTopics;
     Map<String,Integer> topicMap = new HashMap<>();
-    private String TOPIC_URL = "http://10.0.2.2:8080/post/create";
+    private String FOLLOW_TOPIC = "http://54.209.24.172:8080/user/followTopic";
     private String TIMELINE_URL = "http://13.52.211.197:8080/timeline/get/{userId}";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,6 @@ public class SelectTopics extends AppCompatActivity implements View.OnClickListe
         listView = (ListView) findViewById(R.id.list);
         next = (Button) findViewById(R.id.nextButton);
         String[] topics = getResources().getStringArray(R.array.topics_array);
-        //listView.setBackgroundColor(@);
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_multiple_choice, topics);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -92,28 +92,31 @@ public class SelectTopics extends AppCompatActivity implements View.OnClickListe
         }
         selectedTopics = Arrays.asList(outputStrArr);
         followTopics(userId,selectedTopics);
-        getTimeline(userId);
+
     }
 
     private void followTopics(int userId, List<String> topics) {
+        List<Topic> userTopics = new ArrayList<>();
         for(String topic: topics){
             int id = topicMap.get(topic);
             userTopics.add(new Topic(id,topic));
         }
+        this.userTopics = userTopics;
+        UserTopics userT = new UserTopics(userId,userTopics);
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userId", userId);
-            jsonObject.put("userTopics", userTopics);
+            jsonObject.put("UserTopics", userT);
+            //jsonObject.put("userTopics", userTopics);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        AndroidNetworking.post(TOPIC_URL)
-                .addJSONObjectBody(jsonObject) // posting java object
+        AndroidNetworking.post(FOLLOW_TOPIC)
+                .addApplicationJsonBody(userT) // posting java object
                 .build()
                 .getAsString(new StringRequestListener() {
                     @Override
                     public void onResponse(String response) {
-                        
+                        getTimeline(userId);
                     }
                     @Override
                     public void onError(ANError error) {

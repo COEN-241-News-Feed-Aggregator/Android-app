@@ -33,8 +33,10 @@ public class Login extends AppCompatActivity implements Serializable {
     private Button login;
     private String LOGIN_URL;
     private String TIMELINE_URL;
-    private String USERTOPIC_URL;
-    private int userId = 1;
+    private String GET_USER_TOPICS;
+    private String GET_ALL_TOPICS;
+    private List<Topic> topics = new ArrayList<>();
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +48,10 @@ public class Login extends AppCompatActivity implements Serializable {
         editText_userEmail = findViewById(R.id.userEmail);
         editText_password = findViewById(R.id.password);
         login = findViewById(R.id.login);
-        LOGIN_URL = "http://10.0.2.2:8080/user/login";
+        LOGIN_URL = "http://54.209.24.172:8080/user/login";
         TIMELINE_URL = "http://13.52.211.197:8080/timeline/get/{userId}";
+        GET_USER_TOPICS = "http://54.209.24.172:8080/user/getUserTopics/{userId}";
+        GET_ALL_TOPICS = "https://54.209.24.172:8080/user/getAllTopics";
     }
 
     public void login(View view) {
@@ -83,14 +87,18 @@ public class Login extends AppCompatActivity implements Serializable {
                     @Override
                     public void onResponse(String response) {
                         userId = Integer.parseInt(response);
-                        getTimeline(userId);
+                        if(userId > 0){
+                            getTopics(userId);
+                        } else{
+                            Toast.makeText(Login.this, "Failed to login! No user found!", Toast.LENGTH_LONG).show();
+                        }
                     }
                     @Override
                     public void onError(ANError error) {
                         Toast.makeText(Login.this, "Failed to login! Please check your credentials!", Toast.LENGTH_LONG).show();
                     }
                 });
-        
+
     }
 
     public void createUser(View view) {
@@ -100,7 +108,7 @@ public class Login extends AppCompatActivity implements Serializable {
 
 
     private void getTimeline(int userId) {
-        List<Topic> topics = getTopics(userId);
+
         //List<Topic> topics = new ArrayList<>();
         AndroidNetworking.get(TIMELINE_URL)
                 .addPathParameter("userId", String.valueOf(userId))
@@ -116,27 +124,27 @@ public class Login extends AppCompatActivity implements Serializable {
 
             @Override
             public void onError(ANError anError) {
-                Toast.makeText(Login.this, "Failed to login! Please try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "Failed to get timeline!", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     // get topics for the user from database
-    public List<Topic> getTopics(int userId) {
-        final List<Topic>[] topics = new List[]{new ArrayList<>()};
-        AndroidNetworking.get(USERTOPIC_URL)
+    public void getTopics(int userId) {
+        //final List<Topic>[] topics = new List[]{new ArrayList<>()};
+        AndroidNetworking.get(GET_USER_TOPICS)
                 .addPathParameter("userId", String.valueOf(userId))
                 .build().getAsObjectList(Topic.class, new ParsedRequestListener<List<Topic>>() {
             @Override
             public void onResponse(List<Topic> timeline) {
-                topics[0] = timeline;
+                topics.addAll(timeline);
+                getTimeline(userId);
             }
 
             @Override
             public void onError(ANError anError) {
-                Toast.makeText(Login.this, "Failed to login! Please try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "Failed to get topics!", Toast.LENGTH_LONG).show();
             }
         });
-        return topics[0];
     }
 }

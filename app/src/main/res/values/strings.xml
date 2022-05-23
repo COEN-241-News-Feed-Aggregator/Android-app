@@ -11,7 +11,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string-array name="topics_array">
-        <item>Technology></item>
+        <item>Technology</item>
         <item>Science</item>
         <item>Politics</item>
         <item>Sports</item>

@@ -1,6 +1,8 @@
 package Models;
 
-public class Topic {
+import java.io.Serializable;
+
+public class Topic implements Serializable {
     public int topicId;
     public String topicName;
 
