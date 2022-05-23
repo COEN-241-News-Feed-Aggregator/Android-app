@@ -52,6 +52,7 @@ public class SelectTopics extends AppCompatActivity implements View.OnClickListe
         listView = (ListView) findViewById(R.id.list);
         next = (Button) findViewById(R.id.nextButton);
         String[] topics = getResources().getStringArray(R.array.topics_array);
+        //listView.setBackgroundColor(@);
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_multiple_choice, topics);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);

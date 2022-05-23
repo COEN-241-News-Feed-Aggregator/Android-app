@@ -34,7 +34,7 @@ public class Login extends AppCompatActivity implements Serializable {
     private String LOGIN_URL;
     private String TIMELINE_URL;
     private String USERTOPIC_URL;
-    private int userId = 21;
+    private int userId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,13 +85,12 @@ public class Login extends AppCompatActivity implements Serializable {
                         userId = Integer.parseInt(response);
                         getTimeline(userId);
                     }
-
                     @Override
                     public void onError(ANError error) {
                         Toast.makeText(Login.this, "Failed to login! Please check your credentials!", Toast.LENGTH_LONG).show();
                     }
                 });
-        //getTimeline(userId);
+        
     }
 
     public void createUser(View view) {
@@ -102,7 +101,7 @@ public class Login extends AppCompatActivity implements Serializable {
 
     private void getTimeline(int userId) {
         List<Topic> topics = getTopics(userId);
-       // List<Topic> topics = new ArrayList<>();
+        //List<Topic> topics = new ArrayList<>();
         AndroidNetworking.get(TIMELINE_URL)
                 .addPathParameter("userId", String.valueOf(userId))
                 .build().getAsObjectList(NewsArticle.class, new ParsedRequestListener<List<NewsArticle>>() {
