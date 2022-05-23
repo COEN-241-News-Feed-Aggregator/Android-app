@@ -68,7 +68,6 @@ public class Login extends AppCompatActivity implements Serializable {
             editText_userEmail.requestFocus();
             return;
         }
-
         //get userId from userService by passing a json object
         JSONObject jsonObject = new JSONObject();
         try {
@@ -92,6 +91,7 @@ public class Login extends AppCompatActivity implements Serializable {
                         Toast.makeText(Login.this, "Failed to login! Please check your credentials!", Toast.LENGTH_LONG).show();
                     }
                 });
+        //getTimeline(userId);
     }
 
     public void createUser(View view) {
@@ -102,6 +102,7 @@ public class Login extends AppCompatActivity implements Serializable {
 
     private void getTimeline(int userId) {
         List<Topic> topics = getTopics(userId);
+       // List<Topic> topics = new ArrayList<>();
         AndroidNetworking.get(TIMELINE_URL)
                 .addPathParameter("userId", String.valueOf(userId))
                 .build().getAsObjectList(NewsArticle.class, new ParsedRequestListener<List<NewsArticle>>() {

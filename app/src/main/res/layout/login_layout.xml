@@ -26,7 +26,7 @@
         android:gravity="center"
         android:layout_marginTop="75dp"
         android:textSize="40dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"/>
     <TextView
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         android:gravity="center"
         android:layout_marginTop="10sp"
         android:textSize="20dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"/>
     <TextView
         android:layout_width="100dp"
@@ -50,7 +50,7 @@
         android:fontFamily="cursive"
         app:layout_constraintTop_toBottomOf="@id/sign_text"
         android:layout_marginTop="20dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:text="Login Id"
         android:textStyle="bold"
         android:textSize="20dp"
@@ -68,7 +68,9 @@
         app:layout_constraintTop_toBottomOf="@id/sign_text"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:hint="Enter email"/>
+        android:hint="Enter email"
+        android:textColor="@color/white"
+        android:textColorHint="@color/grey"/>
     <TextView
         android:layout_width="100dp"
         android:layout_height="50dp"
@@ -76,7 +78,7 @@
         app:layout_constraintLeft_toLeftOf="@id/login_text"
         android:gravity="center"
         android:fontFamily="cursive"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/login_text"
         android:text="Password"
         android:textStyle="bold"
@@ -90,18 +92,21 @@
         android:layout_marginRight="50dp"
         app:layout_constraintLeft_toRightOf="@id/login_password"
         app:layout_constraintTop_toBottomOf="@id/login_text"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:id="@+id/password"
         android:fontFamily="cursive"
         android:textSize="20dp"
         android:hint="Enter password"
+        android:textColorHint="@color/grey"
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
+
+        android:textColor="@color/white"
         android:id="@+id/login"
-        android:backgroundTint="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="50dp"
@@ -114,7 +119,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
+        android:textColor="@color/white"
         android:text="Create User"
         android:id="@+id/createUser"
         android:layout_marginTop="50dp"

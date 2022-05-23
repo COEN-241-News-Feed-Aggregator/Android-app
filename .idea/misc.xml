@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/drawable-v24/layout_bg.xml" value="0.2328125" />
         <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/drawable/roundedbutton.xml" value="0.4453125" />
         <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/layout/activity_main.xml" value="0.4009259259259259" />
         <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/layout/content_create_user.xml" value="0.42916666666666664" />
@@ -11,10 +12,11 @@
         <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/layout/home_page_layout.xml" value="0.33" />
         <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/layout/layout_bg.xml" value="0.42916666666666664" />
         <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/layout/login_layout.xml" value="0.33" />
-        <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/layout/news_cardview.xml" value="0.33" />
+        <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/layout/news_cardview.xml" value="0.22" />
         <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/layout/select_topics_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/layout/topic_cardview.xml" value="0.22" />
         <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/layout/webview_layout.xml" value="0.42916666666666664" />
+        <entry key="..\:/NewsAggregatorAndroid-app/app/src/main/res/menu/app_menu.xml" value="0.21666666666666667" />
       </map>
     </option>
   </component>

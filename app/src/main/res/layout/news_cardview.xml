@@ -4,14 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/black">
+    android:background="@color/indigo"
+    >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="275dp"
+        android:layout_height="550dp"
         android:layout_margin="5dp"
         android:elevation="10dp"
-        android:backgroundTint="@color/dark_grey">
+        android:backgroundTint="@color/dark_indigo"
+        android:layout_gravity="center"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,11 +27,10 @@
                 android:id="@+id/topic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="cursive"
                 android:text="topic"
                 android:textAlignment="center"
                 android:textColor="@color/ivory"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"/>
 
@@ -36,7 +38,7 @@
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="cursive"
+
                 android:textColor="@color/ivory"
                 android:gravity="right"
                 android:text="Date"
@@ -48,8 +50,8 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="cursive"
-                android:textColor="@color/ivory"
+
+                android:textColor="@color/white"
                 android:text="Title"
                 android:textAlignment="center"
                 android:textStyle="bold"
@@ -61,7 +63,7 @@
                 android:id="@+id/author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="cursive"
+
                 android:textColor="@color/ivory"
                 android:gravity="right"
                 android:text="Author"
@@ -72,24 +74,25 @@
 
                 <ImageView
                     android:id="@+id/display_image"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
                     android:layout_margin="10dp"
                     card_view:layout_constraintLeft_toLeftOf="parent"
                     card_view:layout_constraintTop_toBottomOf="@+id/author"/>
 
                 <TextView
                     android:id="@+id/content_text"
-                    android:layout_margin="10dp"
-                    android:layout_width="200dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Content"
-                    android:textAlignment="center"
                     android:textColor="@color/ivory"
-                    android:fontFamily="cursive"
-                    android:textSize="20dp"
-                    card_view:layout_constraintLeft_toRightOf="@id/display_image"
-                    card_view:layout_constraintTop_toBottomOf="@+id/author"/>
+                    android:textSize="15dp"
+                    card_view:layout_constraintLeft_toLeftOf="parent"
+                    card_view:layout_constraintTop_toBottomOf="@+id/display_image"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

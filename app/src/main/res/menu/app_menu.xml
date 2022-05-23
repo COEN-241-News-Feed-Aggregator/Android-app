@@ -3,8 +3,8 @@
     <item
         android:id="@+id/add_topic"
         android:icon="@drawable/add_topic_foreground"
-        android:title="Add/Remove topic"
-        app:showAsAction="always"
+        android:title="Follow/Unfollow topic"
+        app:showAsAction="always|withText"
         />
 
 </menu>

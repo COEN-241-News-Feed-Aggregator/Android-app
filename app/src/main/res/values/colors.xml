@@ -10,4 +10,6 @@
     <color name="grey">#696969</color>
     <color name="dark_grey">#222422</color>
     <color name="ivory">#fffff0</color>
+    <color name="dark_indigo">#000021</color>
+    <color name="indigo">#34495E</color>
 </resources>
